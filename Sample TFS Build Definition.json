@@ -1,0 +1,60 @@
+{
+	"build": [{
+		"enabled": true,
+		"continueOnError": false,
+		"alwaysRun": false,
+		"displayName": "CheckIn to Remote TFS",
+		"timeoutInMinutes": 0,
+		"condition": "succeeded()",
+		"refName": "PowerShell_1",
+		"task": {
+			"id": "e213ff0f-5d5c-4791-802d-52ea3e7be1f1",
+			"versionSpec": "1.*",
+			"definitionType": "task"
+		},
+		"inputs": {
+			"scriptType": "filePath",
+			"scriptName": "$/__PATH_TO_SCRIPT__/tf-remoteCheckIn.ps1",
+			"arguments": "-OtherTfsCollectionUrl \"$(OtherTfsCollectionUrl)\" -OtherTfsUsername PAT -OtherTfsPassword $(OtherTfsPassword) -OtherTfsServerPath $(OtherTfsServerPath) -OtherTfsWorkspaceName remoteTfs -Verbose",
+			"workingFolder": "",
+			"failOnStandardError": "true"
+		}
+	}],
+	"variables": {
+		"OtherTfsCollectionUrl": {
+			"value": "https://d365ops-adtest.visualstudio.com/"
+		},
+		"OtherTfsPassword": {
+			"value": null,
+			"isSecret": true
+		},
+		"OtherTfsServerPath": {
+			"value": "$/RemoteProject/copiedSource"
+		},
+		"system.debug": {
+			"value": "false",
+			"allowOverride": true
+		}
+	},
+	"jobAuthorizationScope": 1,
+	"jobTimeoutInMinutes": 60,
+	"jobCancelTimeoutInMinutes": 5,
+	"repository": {
+		"properties": {
+			"cleanOptions": "0",
+			"tfvcMapping": "{\"mappings\":[]}",
+			"labelSources": "0",
+			"labelSourcesFormat": "$(build.buildNumber)"
+		},
+		"id": "$/",
+		"type": "TfsVersionControl",
+		"name": "TfsSource",
+		"clean": "false",
+		"checkoutSubmodules": false
+	},
+	"processParameters": {
+		
+	},
+	"quality": 1,
+	"name": "CheckIn to Other TFS Template"
+}
